@@ -7,7 +7,9 @@ function foo() {
     ddns.value = '';
     msg.value = '';
     add_btn.disabled = true;
-    console.log('??');
+    msg.readOnly = true;
+    ddns.readOnly = false;
+    check_btn.disabled = false;
 }
 
 
@@ -34,7 +36,8 @@ async function newFetch(url, data) {
     return resData
 }
 
-check_btn.addEventListener("click", click)
+check_btn.addEventListener("click", click);
+add_btn.addEventListener("click", click1);
 
 async function click (){
     const data = {
@@ -42,10 +45,27 @@ async function click (){
         host: ddns.value
     }
     let resData = await newFetch(realUrl, data)
-    if (resData > -1) {
-        alert(resData)
-    } else
-        alert(resData)
+    if (resData === 'true') {
+	    add_btn.disabled = false;
+	    check_btn.disabled = true;
+	    ddns.readOnly = true;
+	    msg.readOnly = false;
+    }
+}
+
+async function click1 (){
+	    const data = {
+		            type: 2,
+		            host: ddns.value,
+		    	    oper: msg.value
+		        }
+	    let resData = await newFetch(realUrl, data)
+	    if (resData > -1) {
+		    localStorage.setItem("curLogin", resData);
+		    window.location = '/';
+	    } else
+		alert(resData)
+		
 }
 
 msg.oninput = () => {

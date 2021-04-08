@@ -3,6 +3,10 @@ const fs = require('fs');
 const path = require('path');
 const mysql2 = require('mysql2');
 const dig = require('node-dig-dns');
+const dns = require('dns');
+const htmlspecialchars = require('htmlspecialchars');
+
+let user_ip = '';
 
 const connection = mysql2.createConnection({
     host: "127.0.0.1",
@@ -18,8 +22,8 @@ connection.connect(function(err) {
 
 const httpServer = http.createServer((req, res) => {
     console.log('req: '+req.url);
-}).listen(3000, () => {
-    console.log('server is in 3000');
+}).listen(8000, () => {
+    console.log('server is in 8000');
 });
 
 httpServer.on('request', (req, res) => {
@@ -58,10 +62,12 @@ httpServer.on('request', (req, res) => {
                                             newest.ip.push(results[i].ip);
                                             newest.country.push(results[i].country);
                                             newest.oper.push(results[i].oper);
-                                            fs.writeFile('static/config_files/' + results[i].host + '.ovpn',
+					    if (results[i].country !== 'User place'){
+                                            	fs.writeFile('static/config_files/' + results[i].host + '.ovpn',
                                                 results[i].config_data, err1 => {
                                                     if (err1) console.log(err1)
                                                 })
+					}
                                         }
                                         res.end(JSON.stringify(newest));
                                     }
@@ -74,13 +80,33 @@ httpServer.on('request', (req, res) => {
                         })
                 }
                 if (params.type === 1) {
-                    dig([params.host, 'ANY'])
-                        .then(result => {
-                            res.end(JSON.stringify(result.insertId));
-                        })
+			console.log(params.host);
+			console.log('q');
+			dns.lookup(params.host, function onLookup(err, address, family) {
+				console.log('addresses: ', address);
+				if (address !== undefined) {
+					res.end(JSON.stringify("true"));
+					user_ip = address;
+				}
+				else {
+					res.end(JSON.stringify("false"));
+				}
+			})
                 }
+		if (params.type === 2) {
+			connection.promise().query("INSERT INTO imgbrd.vpn_list VALUES ( ?, ?, ?, ?, ? )",
+				[params.host, user_ip, 'User place', htmlspecialchars(params.oper), 'no'])
+				.then(result2 => {
+					res.end(JSON.stringify(result2[0].insertId));
+					console.log("added!");
+				})
+				.catch(err => {
+					 res.end(JSON.stringify("Unpredictable error with DB"));
+					console.log(err);
+				});
             }
-        })
+        }
+    })
     }
     else if (req.url === '/') {
         sendRes('main.html', 'text/html', res);

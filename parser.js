@@ -31,7 +31,7 @@ stream.pipe(csvStream)
     })
 
 function DELETE() {
-    connection.promise().query("TRUNCATE TABLE imgbrd.vpn_list;")
+    connection.promise().query("DELETE FROM imgbrd.vpn_list WHERE country NOT LIKE 'User place';")
         .then(() => {
             console.log('Rows are deleted');
         })
