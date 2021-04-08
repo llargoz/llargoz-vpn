@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=deivce-width, initial-scale=1">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+    <script defer src="js/add.js"></script>
+    <title>Llargoz-VPN</title>
+</head>
+<body onload="foo()">
+<header>
+    <a href="/" class="logo">Llargoz VPN</a>
+</header>
+<section class="section" id="about">
+    <div class="container">
+        <div class="section_header">
+            <h2 class="section_title">Добавление сервера</h2>
+            <br>
+        </div>
+        <div class="container">
+
+            <label><b>DDNS</b></label>
+            <input id="ddns" placeholder="Введите адрес" required>
+
+            <label><b>Ваше имя/Сообщение</b></label>
+            <input id="msg" placeholder="Введите текст" required>
+
+
+            <hr>
+
+            <button type="submit" id="check_btn" class="check_btn">Проверить</button>
+            <button type="submit" id="add_btn" class="add_btn" disabled>Добавить сервер</button>
+        </div>
+    </div>
+</section>
+
+<!-- КОПИРАЙТ -->
+
+<footer class="footer">
+    <div class="container">
+        <div class="copyright">
+            © 2021 <a class="vpngate" href="https://www.vpngate.net/en/">vpngate</a> servers parsed by <span>Llargoz</span>
+        </div>
+    </div>
+</footer>
+</body>
+</html>

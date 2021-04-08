@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Llargoz-VPN</title>
+    <script src="js/script.js"></script>
+    <link href="css/style.css" rel="stylesheet">
+    <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon">
+</head>
+<body>
+<header>
+    <a href="/" onclick="window.history.back()" class="logo">Llargoz VPN</a>
+    <a class="active" href="/">Главная</a>
+</header>
+    <table class="table_dark">
+        <thead>
+        <tr>
+            <td>
+                <b>Страна</b>
+                <br>
+                (Географическое положение)
+            </td>
+            <td>
+                <b>DDNS</b>
+                <br>
+                (Имя хоста)
+            </td>
+            <td>
+                <b>IP адрес</b>
+                <br>
+                (IPv4)
+            </td>
+            <td>
+                <b>OpenVPN</b>
+                <br>
+                (Файл конфигурации)
+            </td>
+        </tr>
+        </thead>
+        <tbody>
+        <script>
+            createHTML();
+        </script>
+        </tbody>
+    </table>
+    <footer class="footer">
+        <div class="container">
+            <div class="copyright">
+                © 2021 <a class="vpngate" href="https://www.vpngate.net/en/">vpngate</a> servers parsed by <span>Llargoz</span>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

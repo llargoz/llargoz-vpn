@@ -1,0 +1,21 @@
+{
+  "name": "llargoz-vpn",
+  "version": "1.0.0",
+  "description": "vpngate parsing service",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Bardadin A",
+  "license": "ISC",
+  "dependencies": {
+    "fast-csv": "^4.3.6",
+    "is-reachable": "^5.0.0",
+    "mysql2": "^2.2.5",
+    "neat-csv": "^6.0.1",
+    "node-dig-dns": "^0.2.12",
+    "node-fetch": "^2.6.1",
+    "request": "^2.88.2"
+  },
+  "devDependencies": {}
+}
